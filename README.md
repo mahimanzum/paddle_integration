@@ -5,6 +5,18 @@ use this commadn to check if authneticated or not
 ```
 curl https://sandbox-api.paddle.com/event-types -H "Authorization: Bearer pdl_sdbx_apikey_01jtvzvnx3eksdcpc4hwtjkdk0_YmGcj8weZwwQHC00AfXtNY_Agu" | cat
 ```
+.env.local file
+```
+
+NEXT_PUBLIC_PADDLE_PRICE_ID=pri_01jtvvpjw4jeh3kt5bv32v7f5w
+NEXT_PUBLIC_PADDLE_CLIENT_TOKEN=test_59a046d12f3fd8cbb8974bd754d
+PADDLE_SECRET_KEY=pdl_sdbx_apikey_01jtvzvnx3eksdcpc4hwtjkdk0_YmGcj8weZwwQHC00AfXtNY_Agu
+NEXT_PUBLIC_PADDLE_VENDOR_ID=31175
+NEXT_PUBLIC_PADDLE_PRODUCT_ID=pro_01jtvvn6v9tcjs2vzq8jd2t0tr
+
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
 ## Prerequisites
 
 - Node.js 18+ and npm
