@@ -1,7 +1,10 @@
 # Paddle Payment Integration Demo
 
 This is a simple Next.js application that demonstrates how to integrate with Paddle for processing payments.
-
+use this commadn to check if authneticated or not 
+```
+curl https://sandbox-api.paddle.com/event-types -H "Authorization: Bearer pdl_sdbx_apikey_01jtvzvnx3eksdcpc4hwtjkdk0_YmGcj8weZwwQHC00AfXtNY_Agu" | cat
+```
 ## Prerequisites
 
 - Node.js 18+ and npm
