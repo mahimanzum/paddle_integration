@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Script from "next/script";
+import AuthStatus from "@/components/auth/AuthStatus";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Paddle Payment Demo",
-  description: "A demo of Paddle payment integration with Next.js",
+  title: "Paddle Payment Demo with Auth",
+  description: "A demo of Paddle payment integration with Next.js and basic authentication",
 };
 
 export default function RootLayout({
@@ -23,40 +24,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const paddleClientToken = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN;
-  const appEnv = process.env.NODE_ENV;
+  // const paddleClientToken = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN; // Removed
+  // const appEnv = process.env.NODE_ENV; // Removed
 
-  const paddleSetupScript = `
-    // Ensure Paddle.js is loaded before trying to initialize
-    const initPaddle = () => {
-      if (window.Paddle) {
-        console.log('Initializing Paddle Billing...');
-        // Set environment first
-        window.Paddle.Environment.set('${appEnv === 'production' ? 'live' : 'sandbox'}');
-        // Then initialize with token and callback
-        window.Paddle.Initialize({
-          token: '${paddleClientToken}', // Client-side token
-          eventCallback: function(data) {
-            console.log('Paddle event:', data);
-          }
-        });
-      } else {
-        console.log('Paddle.js not loaded yet, retrying initPaddle...');
-        setTimeout(initPaddle, 100);
-      }
-    };
-
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      initPaddle();
-    } else {
-      document.addEventListener('DOMContentLoaded', initPaddle);
-    }
-  `;
+  // const paddleSetupScript = ` ... `; // Removed entire paddleSetupScript block
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        <Script
+        {/* <Script
           id="paddle-js"
           src="https://cdn.paddle.com/paddle/v2/paddle.js"
           strategy="beforeInteractive"
@@ -66,12 +42,20 @@ export default function RootLayout({
           strategy="afterInteractive"
         >
           {paddleSetupScript}
-        </Script>
+        </Script> */}
+        {/* Paddle scripts moved to page.tsx */}
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className="antialiased">
+        <header className="bg-gray-800 text-white p-4 shadow-md">
+          <nav className="container mx-auto flex justify-between items-center">
+            <Link href="/" className="text-xl font-bold hover:text-gray-300">
+              Payment App
+            </Link>
+            <AuthStatus />
+          </nav>
+        </header>
+        <main>{children}</main>
+        {/* You could add a footer here */}
       </body>
     </html>
   );
